@@ -9,11 +9,22 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
+import {MeterComponent} from './meter/meter.component'
+
+import { from } from 'rxjs';
+
 export const routes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
+  },
+  {
+    path: 'meter',
+    component: MeterComponent,
+    data:{
+      title: 'meter data',
+    }
   },
   {
     path: '404',
@@ -84,7 +95,7 @@ export const routes: Routes = [
       }
     ]
   },
-  { path: '**', component: P404Component }
+  { path: '**', component: P404Component },
 ];
 
 @NgModule({

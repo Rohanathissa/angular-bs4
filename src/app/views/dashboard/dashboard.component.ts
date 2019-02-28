@@ -1,14 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+
 import { Router } from '@angular/router';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+// import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+import { DeviceService } from '../../device.service';
+import { pipe } from 'rxjs';
+
 
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
 
+
   radioModel: string = 'Month';
+  count : number = 0;
+
+  public incrementer(){
+    this.count  += 1;
+  }
+
+  public decriment(){
+    this.count -= 1;
+  }
 
   // lineChart1
   public lineChart1Data: Array<any> = [
@@ -377,8 +392,47 @@ export class DashboardComponent implements OnInit {
   public random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+  
+  
+  public values: any[];
+  public meterdata: any[];
+  public devices:any[];
 
-  ngOnInit(): void {
+
+  public meters: number ;
+  public nmds: number ;
+  public LVFeederSecs: number ;
+  public LVFeeders: number ;
+  public Transformers: number ;
+  public HVSection: number ;
+  public HVfeeder: number ;
+  public PriSub: number ;
+
+
+
+
+
+  constructor(
+    private deviceData: DeviceService) { 
+  }
+  ngOnInit() {
+    this.deviceData
+    .getAll<any[]>()
+    .subscribe((devicesData:any[])=>{
+      this.devices = devicesData;
+      // for(var i = 1; i <= devicesData.length; i++){
+      //   console.log(devicesData[i]["serial"])
+
+      //   // for(var j = 1; j <= devicesData[i].length; j++){
+      //   //   console.log(devicesData[i][j])
+      //   // }
+      // }
+      // console.log(devicesData)
+    });
+  }
+
+  
+  Init(): void {
     // generate random values for mainChart
     for (let i = 0; i <= this.mainChartElements; i++) {
       this.mainChartData1.push(this.random(50, 200));
