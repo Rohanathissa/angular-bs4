@@ -409,7 +409,10 @@ export class DashboardComponent implements OnInit {
   public PriSub: number ;
 
 
-
+  // Doughnut
+  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  public doughnutChartData: number[] = [350, 450, 100];
+  public doughnutChartType = 'doughnut';
 
 
   constructor(
